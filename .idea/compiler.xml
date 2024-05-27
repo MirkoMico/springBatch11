@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="MS1" />
+        <module name="MSX" />
+        <module name="MS3" />
+        <module name="MS2" />
+        <module name="MS4" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="MS1" options="-parameters" />
+      <module name="MS2" options="-parameters" />
+      <module name="MS3" options="-parameters" />
+      <module name="MS4" options="-parameters" />
+      <module name="MSX" options="-parameters" />
+    </option>
+  </component>
+</project>
