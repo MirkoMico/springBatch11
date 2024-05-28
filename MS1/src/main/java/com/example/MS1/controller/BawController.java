@@ -17,11 +17,11 @@ public class BawController {
 
     @GetMapping("/baw1")
     public List<M1Dto> getBaw1(){
-        return m1Service.getBaw1();
+        return m1Service.getBaw();
     }
     @GetMapping("/baw2")
     public List<M1Dto> getBaw2(){
-        return m1Service.getBaw2();
+        return m1Service.getBaw();
     }
     @GetMapping("/baw3")
     public String getBaw3(){
@@ -34,13 +34,13 @@ public class BawController {
 
     @PostMapping("/baw1")
     public ResponseEntity<M1Dto> postBaw1(@RequestBody M1Dto baw1){
-        m1Service.saveBaw1(baw1);
+        m1Service.saveBaw(baw1);
         return ResponseEntity.ok().body(baw1);
     }
 
     @PostMapping("/baw2")
     public ResponseEntity<M1Dto> postBaw2(@RequestBody M1Dto baw2){
-        m1Service.saveBaw2(baw2);
+        m1Service.saveBaw(baw2);
         return ResponseEntity.ok().body(baw2);
     }
 }
