@@ -7,7 +7,6 @@
 		<artifactId>InailMS</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.example</groupId>
 	<artifactId>MS3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
@@ -15,7 +14,6 @@
 	<description>MS3 - terzo microservizio</description>
 	<properties>
 		<java.version>11</java.version>
-		<!--		<spring-cloud.version>2023.0.1</spring-cloud.version>-->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -35,7 +33,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>2.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
