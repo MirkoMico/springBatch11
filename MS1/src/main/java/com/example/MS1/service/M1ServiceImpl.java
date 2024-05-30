@@ -7,6 +7,8 @@ import com.example.MS1.repository.M1Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +22,7 @@ public class M1ServiceImpl implements M1Service {
     public void saveBaw(M1Dto m1Dto) {
         M1 m1 = M1.builder()
                 .object(m1Dto.getObject())
-                .date(m1Dto.getDate())
+                .date(LocalDateTime.now())
                 .build();
         m1Repository.save(m1);
     }
@@ -30,7 +32,7 @@ public class M1ServiceImpl implements M1Service {
         List<M1> m1List = m1Repository.findAll();
         return m1List.stream().map(m1 -> M1Dto.builder()
                 .object(m1.getObject())
-                .date(m1.getDate())
+                .date(LocalDateTime.now())
                 .build()).collect(Collectors.toList());
     }
 

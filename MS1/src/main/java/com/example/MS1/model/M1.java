@@ -1,7 +1,6 @@
 package com.example.MS1.model;
 
 
-import com.example.MS1.dto.M1Dto;
 import lombok.*;
 
 import javax.persistence.Entity;
