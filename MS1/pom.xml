@@ -5,9 +5,10 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>2.7.11</version>
+		<relativePath/>
 	</parent>
+
 	<groupId>com.example</groupId>
 	<artifactId>MS1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -22,12 +23,12 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>5.5.0</version>
+			<version>5.7.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-oauth2-client</artifactId>
-			<version>5.5.0</version>
+			<version>5.7.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
