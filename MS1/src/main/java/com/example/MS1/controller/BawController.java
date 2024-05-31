@@ -2,18 +2,21 @@ package com.example.MS1.controller;
 
 import com.example.MS1.dto.M1Dto;
 import com.example.MS1.service.M1Service;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/baw")
+@RequiredArgsConstructor
 public class BawController {
 
-    @Autowired
-    M1Service m1Service;
+    private final M1Service m1Service;
+    private final RestTemplate restTemplate;
 
     @GetMapping("/baw1")
     public List<M1Dto> getBaw1(){
