@@ -1,6 +1,2 @@
 endpointId,endpointPath,endpointType,endpointDate
-1,/api/users,GET,2024-05-30T08:00:00
-2,/api/products,POST,2024-05-30T09:15:00
-3,/api/orders,GET,2024-05-30T10:30:00
-4,/api/customers,PUT,2024-05-30T11:45:00
-5,/api/invoices,DELETE,2024-05-30T13:00:00
+1,/endpoint,GET,2024-05-31T12:48:31

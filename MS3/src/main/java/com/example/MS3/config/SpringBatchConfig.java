@@ -8,6 +8,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
@@ -18,6 +19,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
 
 
 @Configuration
@@ -46,17 +49,10 @@ public class SpringBatchConfig {
         itemReader.setLineMapper(lineMapper());
         return itemReader;
     }*/
- /* @Bean
-  public FlatFileItemReader<Endpoint> reader() {
-      FlatFileItemReader<Endpoint> itemReader = new FlatFileItemReader<>();
-      itemReader.setResource(new ClassPathResource("endpoint.csv"));
-      itemReader.setName("csvReader");
-      itemReader.setLinesToSkip(1);
-      itemReader.setLineMapper(lineMapper());
 
-      itemReader.setFieldSetMapper(new EndpointFieldSetMapper()); // Usa il nuovo mapper personalizzato
-      return itemReader;
-  }*/
+
+
+
     @Bean
     public FlatFileItemReader<Endpoint> reader() {
         FlatFileItemReader<Endpoint> itemReader = new FlatFileItemReader<>();
@@ -76,8 +72,6 @@ public class SpringBatchConfig {
 
         return itemReader;
     }
-
-
     private LineMapper<Endpoint> lineMapper() {
         DefaultLineMapper<Endpoint> lineMapper = new DefaultLineMapper<>();
 
@@ -108,7 +102,7 @@ public class SpringBatchConfig {
 
     @Bean
     public Step step1() {
-        return stepBuilderFactory.get("csv-step").<Endpoint, Endpoint>chunk(10)
+        return stepBuilderFactory.get("endpoint.csv").<Endpoint, Endpoint>chunk(4)
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
@@ -119,7 +113,7 @@ public class SpringBatchConfig {
     @Bean
     public Job runJob() {
         return jobBuilderFactory
-                .get("importEndpoints")
+                .get("endpoint.csv")
                 .flow(step1())
                 .end()
                 .build();
@@ -127,8 +121,9 @@ public class SpringBatchConfig {
     }
     //@Bean
     //public TaskExecutor taskExecutor() {
-    //	SimpleAsyncTaskExecutor asyncTaskExecutor = new SimpleAsyncTaskExecutor();
-    //	asyncTaskExecutor.setConcurrencyLimit(10);
-    //	return asyncTaskExecutor;
+    //  SimpleAsyncTaskExecutor asyncTaskExecutor = new SimpleAsyncTaskExecutor();
+    //  asyncTaskExecutor.setConcurrencyLimit(10);
+    //  return asyncTaskExecutor;
     //}
+
 }
