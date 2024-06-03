@@ -14,12 +14,6 @@ public class ServiceClient {
     @Autowired
     private RestTemplate restTemplate;
 
-
-   // public String getEndpoint() {
-     //   return restTemplate.postForObject("http://localhost:8080/baw/baw1", String.class);
-   // }
-
-
     public List<M1Dto> getBaw1(){
         return restTemplate.getForObject("http://MS1/baw/baw1", List.class);
     }
@@ -27,7 +21,6 @@ public class ServiceClient {
         return restTemplate.getForObject(url, responseType);
     }
 
-    //mi fai il il metodo per prendere la chiamata post /baw/baw1
 
 
 }

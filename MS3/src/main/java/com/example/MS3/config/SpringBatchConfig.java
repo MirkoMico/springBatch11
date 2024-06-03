@@ -1,13 +1,10 @@
 package com.example.MS3.config;
 
-import com.example.MS3.job.EndpointItemProcessor;
 import com.example.MS3.model.Endpoint;
 import com.example.MS3.repository.EndpointRepository;
-import org.springframework.batch.core.BatchStatus;
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.annotation.AfterJob;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -23,19 +20,12 @@ import org.springframework.core.io.ClassPathResource;
 
 @Configuration
 @EnableBatchProcessing
+@RequiredArgsConstructor
 public class SpringBatchConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final EndpointRepository endpointRepository;
-
-    public SpringBatchConfig(JobBuilderFactory jobBuilderFactory,
-                             StepBuilderFactory stepBuilderFactory,
-                             EndpointRepository endpointRepository) {
-        this.jobBuilderFactory = jobBuilderFactory;
-        this.stepBuilderFactory = stepBuilderFactory;
-        this.endpointRepository = endpointRepository;
-    }
 
     @Bean
     public FlatFileItemReader<Endpoint> reader() {
@@ -43,38 +33,26 @@ public class SpringBatchConfig {
         itemReader.setResource(new ClassPathResource("endpoint.csv"));
         itemReader.setName("csvReader");
         itemReader.setLinesToSkip(1);
-        DefaultLineMapper<Endpoint> lineMapper = new DefaultLineMapper<>();
-        DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
-        lineTokenizer.setDelimiter(",");
-        lineTokenizer.setNames("endpointId", "endpointPath", "endpointType", "endpointDate");
-
-        lineMapper.setLineTokenizer(lineTokenizer);
-        lineMapper.setFieldSetMapper(new EndpointFieldSetMapper());
-        itemReader.setLineMapper(lineMapper);
+        itemReader.setLineMapper(lineMapper());
 
         return itemReader;
     }
 
-//    private LineMapper<Endpoint> lineMapper() {
-//        DefaultLineMapper<Endpoint> lineMapper = new DefaultLineMapper<>();
-//
-//        DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
-//        lineTokenizer.setDelimiter(",");
-//        lineTokenizer.setStrict(false);
-//        lineTokenizer.setNames("endpointId", "endpointPath", "endpointType", "endpointDate");
-//
-//        BeanWrapperFieldSetMapper<Endpoint> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
-//        fieldSetMapper.setTargetType(Endpoint.class);
-//
-//        lineMapper.setLineTokenizer(lineTokenizer);
-//        lineMapper.setFieldSetMapper(fieldSetMapper);
-//        return lineMapper;
-//
-//    }
+    private LineMapper<Endpoint> lineMapper() {
+        DefaultLineMapper<Endpoint> lineMapper = new DefaultLineMapper<>();
 
-    @Bean
-    public EndpointItemProcessor processor() {
-        return new EndpointItemProcessor();
+        DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
+        lineTokenizer.setDelimiter(",");
+        lineTokenizer.setStrict(false);
+        lineTokenizer.setNames("endpointId", "endpointPath", "endpointType");
+
+        BeanWrapperFieldSetMapper<Endpoint> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
+        fieldSetMapper.setTargetType(Endpoint.class);
+
+        lineMapper.setLineTokenizer(lineTokenizer);
+        lineMapper.setFieldSetMapper(fieldSetMapper);
+        return lineMapper;
+
     }
 
     @Bean

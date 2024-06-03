@@ -18,5 +18,4 @@ public class Endpoint {
     private Long endpointId;
     private String endpointPath;
     private String endpointType;
-    private LocalDateTime endpointDate;
 }
