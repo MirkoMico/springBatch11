@@ -1,2 +1,6 @@
-endpointId,endpointPath,endpointType,endpointDate
-1,/endpoint,GET,2024-05-31T12:48:31
+endpointId,endpointPath,endpointType
+1,/endpoint,GET
+2,/endpoint,GOT
+3,/endpoint,GOTS
+4,/endpoint,GOTSS
+5,/endpoint,GOTSSA
