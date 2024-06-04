@@ -10,7 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.example.MS3")
 @EnableEurekaClient
 @EnableBatchProcessing
 public class Ms3Application {

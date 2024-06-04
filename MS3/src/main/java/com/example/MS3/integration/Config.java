@@ -57,7 +57,7 @@ public class Config {
     public FileReadingMessageSource fileReadingMessageSource() {
         var messageSource = new FileReadingMessageSource();
         messageSource.setDirectory(new File(endpointDirectory));
-        messageSource.setFilter(new SimplePatternFileListFilter("*.csv"));
+       // messageSource.setFilter(new SimplePatternFileListFilter("*.csv"));
         return messageSource;
     }
 
