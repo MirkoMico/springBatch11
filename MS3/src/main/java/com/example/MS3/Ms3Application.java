@@ -15,30 +15,30 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableBatchProcessing
 public class Ms3Application {
 
-	@Autowired
-	private JobLauncher jobLauncher;
-
-	@Autowired
-	private Job job;
+//	@Autowired
+//	private JobLauncher jobLauncher;
+//
+//	@Autowired
+//	private Job job;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Ms3Application.class, args);
 
 	}
-	@Autowired
-	public void run() {
-
-		try {
-
-
-			JobParameters jobParameters = new JobParametersBuilder()
-					.addLong("time", System.currentTimeMillis())
-					.toJobParameters();
-			jobLauncher.run(job, jobParameters);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	@Autowired
+//	public void run() {
+//
+//		try {
+//
+//
+//			JobParameters jobParameters = new JobParametersBuilder()
+//					.addLong("time", System.currentTimeMillis())
+//					.toJobParameters();
+//			jobLauncher.run(job, jobParameters);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 
 }
