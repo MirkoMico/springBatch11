@@ -1,21 +1,17 @@
-package com.example.MS3.model;
+package com.example.MS3.batch.d;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "endpoints")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Endpoint {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long endpointId;
+public class EndpointDTO {
+
+
     private String endpointPath;
     private String endpointType;
     private LocalDateTime endpointDate;
