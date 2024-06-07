@@ -11,7 +11,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/baw")
 public class BawController {
-
     @Autowired
     M1Service m1Service;
 

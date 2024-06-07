@@ -1,13 +1,11 @@
 package com.example.MS1.service;
 
-
 import com.example.MS1.dto.M1Dto;
 import com.example.MS1.model.M1;
 import com.example.MS1.repository.M1Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +25,8 @@ public class M1ServiceImpl implements M1Service {
         m1Repository.save(m1);
     }
 
+
+
     @Override
     public List<M1Dto> getBaw() {
         List<M1> m1List = m1Repository.findAll();
@@ -35,5 +35,4 @@ public class M1ServiceImpl implements M1Service {
                 .date(LocalDateTime.now())
                 .build()).collect(Collectors.toList());
     }
-
 }
