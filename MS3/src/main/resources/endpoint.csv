@@ -1,2 +1,6 @@
 endpointId,endpointPath,endpointType,endpointDate
 1,/endpoint,GET,2024-05-31T12:48:31
+2,/endpoint,GET,2024-06-07T09:16:16
+3,/endpoint,GET,2024-06-07T09:20:20
+4,/endpoint,GET,2024-06-07T09:55:18
+5,/endpoint,GET,2024-06-07T10:09:10

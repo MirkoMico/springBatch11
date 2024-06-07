@@ -9,10 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 @SpringBootApplication
 @EnableEurekaClient
 @EnableBatchProcessing
+@EnableScheduling
 public class Ms3Application {
 
 	@Autowired
@@ -25,6 +30,7 @@ public class Ms3Application {
 		SpringApplication.run(Ms3Application.class, args);
 
 	}
+/*
 	@Autowired
 	public void run() {
 
@@ -39,6 +45,30 @@ public class Ms3Application {
 			e.printStackTrace();
 		}
 	}
+*/
+
+
+	@Scheduled(fixedRate = 8000) // Esegue il job ogni 30 secondi
+	public void runJob() {
+		try {
+			JobParameters jobParameters = new JobParametersBuilder()
+					.addLong("time", System.currentTimeMillis())
+					.toJobParameters();
+			jobLauncher.run(job, jobParameters);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Bean
+	public ThreadPoolTaskScheduler taskScheduler() {
+		ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+		scheduler.setPoolSize(1);
+		scheduler.setThreadNamePrefix("scheduled-task-");
+		scheduler.initialize();
+		return scheduler;
+	}
+
 
 
 }
