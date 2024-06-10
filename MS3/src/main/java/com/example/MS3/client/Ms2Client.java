@@ -28,6 +28,5 @@ public class Ms2Client {
         }
 
         return response.getBody();
-
     }
 }

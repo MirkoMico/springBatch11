@@ -6,18 +6,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Builder
 @Data
-@Table
+@Table(name = "process_stack")
 @AllArgsConstructor
 @NoArgsConstructor
-public class M1 {
+public class ProcessStack {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String object;
-    private LocalDateTime date;
+    private String processId;
+    private Date date;
+    private Boolean inviato;
 }

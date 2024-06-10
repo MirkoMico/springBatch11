@@ -31,7 +31,7 @@ public class JobTestServiceImpl implements JobTestService {
             jobTest = jobTestOpt.get();
             Date now = new Date();
             long diff = now.getTime() - jobTest.getResponseDateTime().getTime();
-            if (diff > 17000) {
+            if (diff > 60000) {
                 response.setStatus(true);
                 jobTest.setResponseMessage("Fine processo");
             } else {

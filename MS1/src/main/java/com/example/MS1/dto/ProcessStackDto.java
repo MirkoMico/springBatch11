@@ -1,0 +1,19 @@
+package com.example.MS1.dto;
+
+import lombok.*;
+
+import java.util.Date;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
+@Setter
+public class ProcessStackDto {
+
+    private String processId;
+    private Date date;
+    private Boolean inviato;
+
+}

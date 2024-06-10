@@ -1,5 +1,6 @@
 package com.example.MS3.config;
 
+import com.example.MS3.client.Ms1Client;
 import com.example.MS3.job.EndpointItemProcessor;
 import com.example.MS3.model.Endpoint;
 import com.example.MS3.repository.EndpointRepository;
@@ -14,6 +15,7 @@ import org.springframework.batch.core.repository.JobExecutionAlreadyRunningExcep
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.item.adapter.ItemReaderAdapter;
 import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
@@ -44,6 +46,8 @@ public class SpringBatchConfig {
 
     @Autowired
     private MyTasklet myTasklet;
+    @Autowired
+    private Ms1Client ms1Client;
 
 
     public SpringBatchConfig(JobBuilderFactory jobBuilderFactory,
@@ -74,4 +78,8 @@ public class SpringBatchConfig {
 
 
 
+
+
 }
+
+

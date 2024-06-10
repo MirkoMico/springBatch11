@@ -1,24 +1,39 @@
 package com.example.MS1.controller;
 
-import com.example.MS1.dto.M1Dto;
+import com.example.MS1.dto.ProcessStackDto;
+import com.example.MS1.model.ProcessStack;
 import com.example.MS1.service.M1Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/baw")
 public class BawController {
+
     @Autowired
     M1Service m1Service;
+    @PostMapping("/process")
+    public ResponseEntity<ProcessStackDto> saveProcess(@RequestBody ProcessStackDto processStackDto){
+        try {
+        m1Service.saveProcess(processStackDto);
+        return ResponseEntity.ok().body(processStackDto);
 
-    @GetMapping("/baw1")
-    public List<M1Dto> getBaw1(){
-        return m1Service.getBaw();
+        }catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
     }
-    @GetMapping("/baw2")
+
+
+    @GetMapping("/get-process")
+    public Optional<List<ProcessStack>> getprocess(){
+
+        return m1Service.getAllProcess();
+    }
+  /*  @GetMapping("/baw2")
     public List<M1Dto> getBaw2(){
         return m1Service.getBaw();
     }
@@ -41,5 +56,5 @@ public class BawController {
     public ResponseEntity<M1Dto> postBaw2(@RequestBody M1Dto baw2){
         m1Service.saveBaw(baw2);
         return ResponseEntity.ok().body(baw2);
-    }
+    }*/
 }

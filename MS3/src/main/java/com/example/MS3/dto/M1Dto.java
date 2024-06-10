@@ -9,6 +9,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class M1Dto {
-    private String object;
+    private String processId;
     private LocalDateTime date;
 }

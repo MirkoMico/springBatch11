@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface ProcessStackRepository extends JpaRepository<ProcessStack, Integer> {
     public Optional<ProcessStack> findFirstByActiveAndDateEnd (byte active, Date dateEnd);
     public Optional<ProcessStack> findFirstByActive(byte active);
+
+    boolean existsByProcessId(String jobtest);
 }

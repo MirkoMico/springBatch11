@@ -1,5 +1,6 @@
 package com.example.MS3.service.impl;
 
+import com.example.MS3.client.Ms1Client;
 import com.example.MS3.client.Ms2Client;
 import com.example.MS3.dto.CheckRequestDTO;
 import com.example.MS3.dto.CheckResponseDTO;
@@ -8,19 +9,26 @@ import com.example.MS3.entity.ProcessStack;
 import com.example.MS3.repository.JobTestRepository;
 import com.example.MS3.repository.ProcessStackRepository;
 import com.example.MS3.service.JobTestService;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import static org.springframework.boot.cloud.CloudPlatform.getActive;
 
 @Service
+
 public class JobTestServiceImpl implements JobTestService {
 
     @Autowired
     private Ms2Client ms2Client;
+    @Autowired
+    private Ms1Client ms1Client;
 
     @Autowired
     private ProcessStackRepository processStackRepository;
@@ -30,11 +38,36 @@ public class JobTestServiceImpl implements JobTestService {
 
     @Override
     public void check() throws Exception {
+     /*   ProcessStack processStack = new ProcessStack();
+        if (!processStackRepository.existsByProcessId("jobtest2"))
+        {
+        processStack.setProcessId("jobtest2");
+        processStack.setActive((byte) 0);
+        //processStack.setDateStart(new Date());
+        processStackRepository.save(processStack);}*/
+
+
+        //avvia la chiamata verso MS1
+        Optional<List<ProcessStack>> stakMs1 = ms1Client.getEntitiesFromM1Service();
+        if (stakMs1.isPresent()) {
+            for (ProcessStack processStackMs3 : stakMs1.get()) {
+                ProcessStack processStack = new ProcessStack();
+                processStack.setActive((byte) 0);
+                processStack.setDateStart(null);
+                processStack.setDateEnd(null);
+                processStack.setProcessId(processStackMs3.getProcessId());
+                processStackRepository.save(processStack);
+
+            }
+        }
+
+
         // prelevo il processo attivo(active=1 and dateEnd = null)
         Optional<ProcessStack> activeProcessOpt = processStackRepository.findFirstByActiveAndDateEnd((byte) 1, null);
-        ProcessStack activeProcess = null;
+
 
         CheckResponseDTO response = new CheckResponseDTO();
+        ProcessStack activeProcess = null;
         // se il processo non esiste seleziono la prima riga con active=0
         if (activeProcessOpt.isEmpty()) {
             activeProcessOpt = processStackRepository.findFirstByActive((byte) 0);
@@ -75,61 +108,10 @@ public class JobTestServiceImpl implements JobTestService {
                 processStackRepository.save(activeProcess);
             }
         }
+
+
+
+
+
     }
-
- /*   @Override
-    public void check() throws Exception {
-        // prelevo il processo attivo (active=1 and dateEnd = null)
-        Optional<ProcessStack> activeProcessOpt = processStackRepository.findFirstByActive((byte) 1);
-        ProcessStack activeProcess = null;
-
-        CheckResponseDTO response = new CheckResponseDTO();
-        // se il processo non esiste seleziono la prima riga con active=0
-        if (activeProcessOpt.isEmpty()) {
-            activeProcessOpt = processStackRepository.findFirstByActiveAndDateEnd((byte) 0, null);
-            // se il processo active=0 esiste, imposto active a 1 e data start a new Date
-            if (activeProcessOpt.isPresent()) {
-                activeProcess = activeProcessOpt.get();
-                activeProcess.setActive((byte) 1);
-                activeProcess.setDateStart(new Date());
-                processStackRepository.save(activeProcess);
-            }
-        } else {
-            activeProcess = activeProcessOpt.get();
-        }
-        // se non esistono processi (non ci sono active=0) non eseguo la chiamata ed esco
-
-        // avvio la chiamata verso Ms2
-        if (activeProcess != null) {
-            response = ms2Client.jobTestClient(activeProcess.getProcessId());
-            // se la chiamata ha successo, imposto active a 0 e dataEnd a new Date
-            if (response != null && response.isStatus()) {
-                activeProcess.setDateEnd(new Date());
-            }
-
-            Optional<JobTest> jobTestOpt = jobTestRepository.findByProcessId(activeProcess.getProcessId());
-            JobTest jobTest;
-
-            // Se non esiste un record con il processId corrente, creane uno nuovo
-            if (jobTestOpt.isEmpty()) {
-                jobTest = new JobTest();
-                jobTest.setProcessId(activeProcess.getProcessId());
-                jobTest.setResponseMessage(response.getResponseMessage());
-                jobTest.setResponseDateTime(response.getResponseDateTime());
-                jobTest.setAttempt((short) 1); // Primo tentativo
-                jobTestRepository.save(jobTest);
-            } else {
-                jobTest = jobTestOpt.get();
-                jobTest.setResponseMessage(response.getResponseMessage());
-                jobTest.setResponseDateTime(response.getResponseDateTime());
-                jobTest.setAttempt((short) (jobTest.getAttempt() + 1));
-                jobTestRepository.save(jobTest);
-            }
-
-            processStackRepository.save(activeProcess);
-        }
-    }
-
-*/
-
 }
