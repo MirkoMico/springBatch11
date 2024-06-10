@@ -1,9 +1,7 @@
 package com.example.MS1.dto;
 
-import com.example.MS1.model.M1;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -12,9 +10,9 @@ import java.util.Date;
 @Builder
 @Getter
 @Setter
-public class M1Dto {
+public class ProcessStackDto {
 
     private String processId;
     private Date date;
-
+    private Boolean inviato;
 }

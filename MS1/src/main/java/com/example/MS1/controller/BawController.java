@@ -1,12 +1,14 @@
 package com.example.MS1.controller;
 
-import com.example.MS1.dto.M1Dto;
+import com.example.MS1.dto.ProcessStackDto;
+import com.example.MS1.model.ProcessStack;
 import com.example.MS1.service.M1Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/baw")
@@ -16,10 +18,10 @@ public class BawController {
     M1Service m1Service;
 
     @PostMapping("/process")
-    public ResponseEntity<M1Dto> postProcess(@RequestBody M1Dto m1Dto){
+    public ResponseEntity<ProcessStackDto> postProcess(@RequestBody ProcessStackDto processStackDto){
         try{
-            m1Service.saveProcess(m1Dto);
-            return ResponseEntity.ok().body(m1Dto);
+            m1Service.saveProcess(processStackDto);
+            return ResponseEntity.ok().body(processStackDto);
         } catch (Exception e){
             return ResponseEntity.badRequest().body(null);
         }
@@ -27,8 +29,8 @@ public class BawController {
     }
 
     @GetMapping("/get-process")
-    public List<M1Dto> getProcess(){
-        return m1Service.getProcess();
+    public Optional<List<ProcessStack>> getProcess(){
+        return m1Service.getAllProcess();
     }
     /*
 

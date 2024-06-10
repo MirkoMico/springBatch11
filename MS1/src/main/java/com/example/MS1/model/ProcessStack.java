@@ -4,18 +4,17 @@ package com.example.MS1.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Builder
 @Data
-@Table
+@Table(name = "process_stack")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class M1 {
+public class ProcessStack {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +22,5 @@ public class M1 {
 
     private String processId;
     private Date date;
-
+    private Boolean inviato;
 }

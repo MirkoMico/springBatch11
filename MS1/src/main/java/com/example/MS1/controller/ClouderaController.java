@@ -1,10 +1,7 @@
 package com.example.MS1.controller;
 
 
-import com.example.MS1.dto.M1Dto;
 import com.example.MS1.service.M1Service;
-import com.netflix.discovery.converters.Auto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,5 +1,6 @@
 package com.example.MS3.service.impl;
 
+import com.example.MS3.client.Ms1Client;
 import com.example.MS3.client.Ms2Client;
 import com.example.MS3.dto.CheckRequestDTO;
 import com.example.MS3.dto.CheckResponseDTO;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,10 +25,34 @@ public class JobTestServiceImpl implements JobTestService {
     private Ms2Client ms2Client;
 
     @Autowired
+    private Ms1Client ms1Client;
+
+    @Autowired
     private JobTestRepository jobTestRepository;
 
     @Override
     public void check() throws Exception {
+
+        Optional<List<ProcessStack>> stackMS1 = ms1Client.getProcessFromMs1();
+        System.out.println("Lista da MS1: " + stackMS1);
+
+// ciclare la lista e salvare i nuovi processi
+        if (stackMS1.isPresent()) {
+            for (ProcessStack processStackMS3 : stackMS1.get()) {
+                ProcessStack processStackNew = new ProcessStack();
+                processStackNew.setActive((byte) 0);
+                processStackNew.setDateEnd(null);
+                processStackNew.setDateStart(null);
+                processStackNew.setProcessId(processStackMS3.getProcessId());
+                System.out.println("Nuovo processo: " + processStackNew);
+                processStackRepository.save(processStackNew);
+            }
+        }
+
+
+
+
+
         // rilevo il processo attivo (active = 1 and dateEnd = null)
         Optional<ProcessStack> activeProcessOpt = processStackRepository.findFirstByActiveAndDateEnd((byte) 1,null);
         ProcessStack activeProcess = null;
