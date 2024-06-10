@@ -4,6 +4,7 @@ import com.example.MS1.model.M1;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 public class M1Dto {
 
-    private String object;
-    private LocalDateTime date;
+    private String processId;
+    private Date date;
 
 }

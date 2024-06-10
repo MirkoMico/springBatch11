@@ -1,5 +1,6 @@
 package com.example.MS3.config;
 
+import com.example.MS3.client.Ms1Client;
 import com.example.MS3.job.EndpointItemProcessor;
 import com.example.MS3.model.Endpoint;
 import com.example.MS3.repository.EndpointRepository;
@@ -10,6 +11,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.item.adapter.ItemReaderAdapter;
 import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
@@ -38,6 +40,9 @@ public class SpringBatchConfig {
     @Autowired
     private MyTasklet myTasklet;
 
+    @Autowired
+    private Ms1Client ms1Client;
+
     public SpringBatchConfig(JobBuilderFactory jobBuilderFactory,
                              StepBuilderFactory stepBuilderFactory) {
         this.jobBuilderFactory = jobBuilderFactory;
@@ -57,5 +62,9 @@ public class SpringBatchConfig {
                 .tasklet(myTasklet)
                 .build();
     }
+
+
+
+
 
 }

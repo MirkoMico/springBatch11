@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Builder
@@ -19,7 +20,8 @@ public class M1 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String object;
-    private LocalDateTime date;
+
+    private String processId;
+    private Date date;
 
 }

@@ -15,6 +15,23 @@ public class BawController {
     @Autowired
     M1Service m1Service;
 
+    @PostMapping("/process")
+    public ResponseEntity<M1Dto> postProcess(@RequestBody M1Dto m1Dto){
+        try{
+            m1Service.saveProcess(m1Dto);
+            return ResponseEntity.ok().body(m1Dto);
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(null);
+        }
+
+    }
+
+    @GetMapping("/get-process")
+    public List<M1Dto> getProcess(){
+        return m1Service.getProcess();
+    }
+    /*
+
     @GetMapping("/baw1")
     public List<M1Dto> getBaw1(){
         return m1Service.getBaw();
@@ -43,4 +60,6 @@ public class BawController {
         m1Service.saveBaw(baw2);
         return ResponseEntity.ok().body(baw2);
     }
+    */
+
 }

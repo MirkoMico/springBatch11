@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface M1Service{
 
-    public void saveBaw(M1Dto m1Dto);
+    public void saveProcess(M1Dto m1Dto);
 
-    public List<M1Dto> getBaw();
+    public List<M1Dto> getProcess();
 
 }
