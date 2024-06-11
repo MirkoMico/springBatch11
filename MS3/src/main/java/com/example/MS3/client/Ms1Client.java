@@ -12,6 +12,8 @@ import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -45,6 +47,20 @@ public class Ms1Client {
         System.out.println(result +" risultato da m1");
         return Optional.ofNullable(result2);
 
+    }
+
+
+    private final String ms1ServiceUrl = "http://ms1/baw"; // Inserisci l'URL del servizio MS1
+
+    public void notifyProcessTermination(String processId) {
+        String url = ms1ServiceUrl + "/notifyProcessTermination?processId=" + processId;
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.POST, entity, Void.class);
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            throw new RuntimeException("Failed to notify process termination to MS1");
+        }
     }
 
 

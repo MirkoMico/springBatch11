@@ -38,14 +38,6 @@ public class JobTestServiceImpl implements JobTestService {
 
     @Override
     public void check() throws Exception {
-     /*   ProcessStack processStack = new ProcessStack();
-        if (!processStackRepository.existsByProcessId("jobtest2"))
-        {
-        processStack.setProcessId("jobtest2");
-        processStack.setActive((byte) 0);
-        //processStack.setDateStart(new Date());
-        processStackRepository.save(processStack);}*/
-
 
         //avvia la chiamata verso MS1
         Optional<List<ProcessStack>> stakMs1 = ms1Client.getEntitiesFromM1Service();
@@ -110,7 +102,11 @@ public class JobTestServiceImpl implements JobTestService {
         }
 
 
+        // Notifica a MS1 che il processo è terminato
+        if (activeProcess != null && activeProcess.getDateEnd() != null) {
+            ms1Client.notifyProcessTermination(activeProcess.getProcessId());
 
+        }
 
 
     }

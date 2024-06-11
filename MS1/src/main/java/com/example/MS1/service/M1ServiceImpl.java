@@ -25,6 +25,8 @@ public class M1ServiceImpl implements M1Service {
                 .processId(processStackDto.getProcessId())
                 .date(new Date())
                 .inviato(false)
+                .concluso(false)
+                .dateEnd(null)
                 .build();
         m1Repository.save(processStack);
 
@@ -62,6 +64,19 @@ public class M1ServiceImpl implements M1Service {
         } else {
             return Optional.empty();
         }
+    }
+@Override
+    public void handleProcessTermination(String processId) {
+        // Esegui la logica per gestire la terminazione del processo
+        ProcessStack process = (ProcessStack) m1Repository.findByprocessId(processId)
+                .orElseThrow(() -> new RuntimeException("Process not found with ID: " + processId));
+
+        process.setConcluso(true);
+        process.setDateEnd(new Date());
+
+       m1Repository.save(process);
+
+        // Esegui altre logiche necessarie
     }
 
 

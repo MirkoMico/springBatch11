@@ -13,4 +13,6 @@ public interface M1Service {
     public List<ProcessStackDto> getProcess();
 
     public Optional<List<ProcessStack>> getAllProcess();
+
+    public void handleProcessTermination(String processId);
 }

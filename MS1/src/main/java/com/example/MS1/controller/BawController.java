@@ -33,6 +33,17 @@ public class BawController {
 
         return m1Service.getAllProcess();
     }
+
+    @PostMapping("/notifyProcessTermination")
+    public void notifyProcessTermination(@RequestParam("processId") String processId) {
+        // Gestisci la terminazione del processo qui
+        System.out.println("Process with ID " + processId + " has terminated.");
+
+        m1Service.handleProcessTermination(processId);
+    }
+
+
+
   /*  @GetMapping("/baw2")
     public List<M1Dto> getBaw2(){
         return m1Service.getBaw();

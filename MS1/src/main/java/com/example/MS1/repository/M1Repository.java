@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface M1Repository extends JpaRepository<ProcessStack, Long> {
 
    List< ProcessStack> findByInviatoFalse();
+
+    Optional<Object> findByprocessId(String processId);
 }

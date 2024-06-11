@@ -15,5 +15,7 @@ public class ProcessStackDto {
     private String processId;
     private Date date;
     private Boolean inviato;
+    private Boolean concluso;
+    private Date dateEnd;
 
 }
