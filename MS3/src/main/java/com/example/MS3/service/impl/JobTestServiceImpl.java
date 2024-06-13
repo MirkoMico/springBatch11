@@ -110,4 +110,15 @@ public class JobTestServiceImpl implements JobTestService {
 
 
     }
+
+    public void check1(){
+        System.out.println("check1");
+    }
+    public void check2(){
+        System.out.println("check2");
+    }
+    public void check3(){
+        System.out.println("check3");
+    }
+
 }

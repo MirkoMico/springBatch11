@@ -26,6 +26,7 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
@@ -46,8 +47,21 @@ public class SpringBatchConfig {
 
     @Autowired
     private MyTasklet myTasklet;
+
+    @Autowired
+    private MyTasklet1 myTasklet1;
+
+    @Autowired
+    private MyTasklet2 myTasklet2;
+    @Autowired
+    private MyTasklet3 myTasklet3;
+
     @Autowired
     private Ms1Client ms1Client;
+
+    @Autowired
+    private JobLauncher jobLauncher;
+
 
 
     public SpringBatchConfig(JobBuilderFactory jobBuilderFactory,
@@ -59,11 +73,25 @@ public class SpringBatchConfig {
     }
 
     @Bean
+    @Primary
     public Job myJob() {
         return jobBuilderFactory.get("myJob")
+                .incrementer(new RunIdIncrementer())
                 .start(myStep())
+                .next(myStep1())
+                .next(myStep2())
                 .build();
     }
+
+    @Bean
+    public Job anotherJob() {
+        return jobBuilderFactory.get("anotherJob")
+                .incrementer(new RunIdIncrementer())
+                .start(myStep3())
+                .build();
+    }
+
+
 
     @Bean
     public Step myStep() {
@@ -71,6 +99,43 @@ public class SpringBatchConfig {
                 .tasklet(myTasklet)
                 .build();
     }
+
+
+    @Bean
+    public Step myStep1() {
+        return stepBuilderFactory.get("myStep1")
+                .tasklet(myTasklet1)
+                .build();
+    }
+    @Bean
+    public Step myStep2() {
+        return stepBuilderFactory.get("myStep2")
+                .tasklet(myTasklet2)
+                .build();
+    }
+
+    @Bean
+    public Step myStep3() {
+        return stepBuilderFactory.get("myStep3")
+                .tasklet(myTasklet3)
+                .build();
+    }
+
+ /*   @Scheduled(cron = "0 0 * * * ?") // Esegue ogni ora
+    public void perform() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+        JobParameters jobParameters = new JobParametersBuilder()
+                .addLong("time", System.currentTimeMillis())
+                .toJobParameters();
+
+        JobExecution jobExecution1 = jobLauncher.run(myJob(), jobParameters);
+        if (jobExecution1.getStatus() == BatchStatus.COMPLETED) {
+            JobExecution jobExecution2 = jobLauncher.run(myJob1(), jobParameters);
+            if (jobExecution2.getStatus() == BatchStatus.COMPLETED) {
+                log.info("Both jobs executed successfully");
+            }
+        }
+    }*/
+
 
 
 

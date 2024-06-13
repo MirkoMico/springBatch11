@@ -25,6 +25,7 @@ public class BawController {
         }catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
+       
     }
 
 

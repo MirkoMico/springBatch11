@@ -1,8 +1,9 @@
-package com.example.MS1.service;
+package com.example.MS1.service.impl;
 
 import com.example.MS1.dto.ProcessStackDto;
 import com.example.MS1.model.ProcessStack;
 import com.example.MS1.repository.M1Repository;
+import com.example.MS1.service.M1Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -6,12 +6,14 @@
 		<groupId>com.example</groupId>
 		<artifactId>InailMS</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
+
 	</parent>
 	<artifactId>MS3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>MS3</name>
 	<description>MS3 - terzo microservizio</description>
+
 	<properties>
 		<java.version>11</java.version>
 	</properties>

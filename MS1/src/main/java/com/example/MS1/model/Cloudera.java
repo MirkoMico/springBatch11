@@ -11,11 +11,15 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Claudera {
+public class Cloudera {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String tipo;
     private String frequenza;
+    private String codice;
+
+	
+    
 }
