@@ -16,8 +16,8 @@ public class ProcessStack implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="processStackId")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "processStackId")
 	private int processStackId;
 
 	private byte active;
@@ -29,6 +29,10 @@ public class ProcessStack implements Serializable {
 	private Date dateStart;
 
 	private String processId;
+
+
+
+
 
 	public ProcessStack() {
 	}
@@ -73,4 +77,6 @@ public class ProcessStack implements Serializable {
 		this.processId = processId;
 	}
 
+
 }
+

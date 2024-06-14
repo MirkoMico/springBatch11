@@ -21,6 +21,10 @@ public class JobTest implements Serializable {
 
 	private String processId;
 
+	//private String frequenza;
+
+//	private String tipo;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date responseDateTime;
 
@@ -63,5 +67,6 @@ public class JobTest implements Serializable {
 	public void setResponseMessage(String responseMessage) {
 		this.responseMessage = responseMessage;
 	}
+
 
 }

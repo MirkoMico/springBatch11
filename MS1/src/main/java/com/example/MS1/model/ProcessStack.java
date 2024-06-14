@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Builder
@@ -19,9 +20,13 @@ public class ProcessStack {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String processId;
+   // private String tipo;
+   // private String frequenza;
     private Date date;
     private Boolean inviato;
     private Boolean concluso;
     private Date dateEnd;
+
+
 
 }

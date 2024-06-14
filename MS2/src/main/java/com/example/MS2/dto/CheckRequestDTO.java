@@ -9,5 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CheckRequestDTO {
     private String processId;
+   // private String frequenza;
+   // private String tipo;
 
 }

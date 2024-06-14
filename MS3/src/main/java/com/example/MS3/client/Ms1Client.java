@@ -44,26 +44,29 @@ public class Ms1Client {
         List<LinkedHashMap> list = result.getBody();
         List<ProcessStack> result2 = objectMapper.convertValue(list, new TypeReference<List<ProcessStack>>() {
         });
-        System.out.println(result +" risultato da m1");
+        System.out.println(result + " risultato da m1");
         return Optional.ofNullable(result2);
 
     }
 
 
-    private final String ms1ServiceUrl = "http://ms1/baw"; // Inserisci l'URL del servizio MS1
+    private final String ms1ServiceUrl = "http://ms1/baw"; // URL del servizio MS1
 
     public void notifyProcessTermination(String processId) {
         String url = ms1ServiceUrl + "/notifyProcessTermination?processId=" + processId;
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> entity = new HttpEntity<>(headers);
-
-        ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.POST, entity, Void.class);
-        if (!response.getStatusCode().is2xxSuccessful()) {
-            throw new RuntimeException("Failed to notify process termination to MS1");
+        try {
+            ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.POST, entity, Void.class);
+            if (!response.getStatusCode().is2xxSuccessful()) {
+                throw new RuntimeException("Failed to notify process termination to MS1");
+            }
+            System.out.println("Notifica a MS1 inviata con successo per il processo ID: " + processId);
+        } catch (Exception e) {
+            System.err.println("Errore durante la chiamata a MS1: " + e.getMessage());
+            throw e;
         }
     }
-
-
 
 
 }

@@ -13,4 +13,8 @@ public interface ProcessStackRepository extends JpaRepository<ProcessStack, Inte
     public Optional<ProcessStack> findFirstByActive(byte active);
 
     boolean existsByProcessId(String jobtest);
+
+
+
+
 }

@@ -12,4 +12,6 @@ public class ClouderaDto {
 
     private String tipo;
     private String frequenza;
+    private String codice;
+    private String processId;
 }

@@ -1,6 +1,7 @@
 package com.example.MS1.service.impl;
 
 import com.example.MS1.model.Cloudera;
+import com.example.MS1.model.ProcessStack;
 import com.example.MS1.repository.ClouderaRepository;
 import com.example.MS1.service.ClouderaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class ClouderaServiceImpl implements ClouderaService {
         cloudera.setTipo(tipo);
         cloudera.setFrequenza(frequenza);
         cloudera.setCodice(codice);
+      //  ProcessStack processStack = new ProcessStack();
+       // cloudera.setProcessStack(processStack);
         clouderaRepository.save(cloudera);
         
       

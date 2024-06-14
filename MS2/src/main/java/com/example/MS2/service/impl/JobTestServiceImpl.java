@@ -26,6 +26,8 @@ public class JobTestServiceImpl implements JobTestService {
             jobTest.setProcessId(request.getProcessId());
             jobTest.setResponseMessage("Inizio processo");
             jobTest.setResponseDateTime(new Date());
+           // jobTest.setTipo(request.getTipo());
+           // jobTest.setFrequenza(request.getFrequenza());
             jobTestRepository.save(jobTest);
         } else {
             jobTest = jobTestOpt.get();

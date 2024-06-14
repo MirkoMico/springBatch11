@@ -13,6 +13,8 @@ import java.util.Date;
 public class ProcessStackDto {
 
     private String processId;
+   // private String tipo;
+   // private String frequenza;
     private Date date;
     private Boolean inviato;
     private Boolean concluso;

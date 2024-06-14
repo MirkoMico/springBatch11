@@ -1,7 +1,9 @@
 package com.example.MS1.service.impl;
 
 import com.example.MS1.dto.ProcessStackDto;
+import com.example.MS1.model.Cloudera;
 import com.example.MS1.model.ProcessStack;
+import com.example.MS1.repository.ClouderaRepository;
 import com.example.MS1.repository.M1Repository;
 import com.example.MS1.service.M1Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +20,24 @@ public class M1ServiceImpl implements M1Service {
     @Autowired
     M1Repository m1Repository;
 
+    @Autowired
+    ClouderaRepository clouderaRepository;
+
 
     @Override
     public void saveProcess(ProcessStackDto processStackDto) {
 
         ProcessStack processStack = ProcessStack.builder()
                 .processId(processStackDto.getProcessId())
+              //  .tipo(processStackDto.getTipo())
+              //  .frequenza(processStackDto.getFrequenza())
                 .date(new Date())
                 .inviato(false)
                 .concluso(false)
                 .dateEnd(null)
                 .build();
         m1Repository.save(processStack);
+
 
     }
 
@@ -49,6 +57,8 @@ public class M1ServiceImpl implements M1Service {
         List<ProcessStack> processStackList = m1Repository.findAll();
         return processStackList.stream().map(processStack -> ProcessStackDto.builder()
                 .processId(processStack.getProcessId())
+              //  .tipo(processStack.getTipo())
+              //  .frequenza(processStack.getFrequenza())
                 .date(new Date())
                 .build()).collect(Collectors.toList());
     }
@@ -76,8 +86,9 @@ public class M1ServiceImpl implements M1Service {
         process.setDateEnd(new Date());
 
        m1Repository.save(process);
+    System.out.println("Processo con ID " + processId + " terminato e salvato su MS1");
 
-        // Esegui altre logiche necessarie
+
     }
 
 

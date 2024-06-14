@@ -77,8 +77,9 @@ public class SpringBatchConfig {
     public Job myJob() {
         return jobBuilderFactory.get("myJob")
                 .incrementer(new RunIdIncrementer())
-                .start(myStep())
-                .next(myStep1())
+                //.start(myStep())
+                //.next(myStep1())
+                .start(myStep1())
                 .next(myStep2())
                 .build();
     }
